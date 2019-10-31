@@ -19,6 +19,8 @@ function Trivia(config) {
   this.slots = {};
   this.answer = [];
   this.selected = null;
+  this.history = [];
+  this.session = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
   this.handleAnswerChange = this.handleAnswerChange.bind(this);
   this.handleNextButton = this.handleNextButton.bind(this);
 }
@@ -101,13 +103,19 @@ Trivia.prototype.handleNextButton = function handleNextButton() {
   if (this.mode === 'perception') { // Based on scores
     if (question.mode === 'singular') {
       score = question.answer[this.answer[0]]
+      this.history.push({
+        session: this.session,
+        question_id: question.id,
+        type: question.type,
+        number: score,
+      });
     }
   } else {
     // Based on index
     const guessed = this.answer.filter((answer) => question.answer.includes(answer));
     score = guessed.length / question.answer.length;
   }
-  if (this.step === (this.questions.length - 1)) {
+  if (this.step + 1 === (this.questions.length - 1)) {
     this.slots.button.textContent = 'Finalizar';
   }
   this.score += score;
@@ -123,7 +131,7 @@ Trivia.prototype.endGame = function endGame() {
   if (this.mode === 'perception') {
     score = this.score / questions
   }
-  const TriviaEvent = new CustomEvent('ended', { detail: { score, questions } })
+  const TriviaEvent = new CustomEvent('ended', { detail: { score, questions, history: this.history } })
   this.el.dispatchEvent(TriviaEvent)
 };
 

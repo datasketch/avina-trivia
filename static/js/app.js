@@ -1,5 +1,13 @@
+const apiUrl = 'https://o3q3l9elhd.execute-api.us-east-1.amazonaws.com/beta';
+
+const s3Params = {
+  bucket: 'avina-trivia-verdad',
+  key: 'db.json',
+};
+
 const questions = [
   {
+    id: 1,
     text: 'Su pareja la/lo ha invitado a cenar y llega con un costoso anillo de regalo. Resulta que a usted no le gusta, quizá le parece tan feo que no se sienta capaz de llegar a usarlo nunca. ¿Qué dice usted?',
     choices: [
       'Divino, me encanta.',
@@ -9,50 +17,66 @@ const questions = [
     ],
     answer: [0, 25, 75, 100],
     mode: 'singular',
+    type: 'weight_scale'
   },
   {
+    id: 2,
     text: '¿Alguna vez ha hecho trampa en algún exámen?',
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
+    type: 'weight_scale'
   },
   {
+    id: 3,
     text: '¿Dijo o ha dicho alguna mentira a sus profesores?',
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
+    type: 'weight_scale'
   },
   {
+    id: 4,
     text: '¿Alguna vez mintió a sus padres para poder salir, no hacer las tareas, no ir al colegio, etc?',
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
+    type: 'weight_scale'
   },
   {
+    id: 5,
     text: '¿Le ha mentido a sus amigos/as acerca de sus posesiones, sus experiencias o su historia personal?',
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
+    type: 'weight_scale'
   },
   {
+    id: 6,
     text: '¿Ha mentido acerca de sus experiencias, de su historia personal, de sus posesisones o conocimientos a alguien que le interesaba sentimentalmente?',
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
+    type: 'weight_scale'
   },
   {
+    id: 7,
     text: '¿Ha mentido acerca de alguna infidelidad amorosa?',
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
+    type: 'weight_scale'
   },
   {
+    id: 8,
     text: '¿Ha dicho alguna mentira para obtener algún trabajo?',
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
+    type: 'weight_scale'
   },
   {
+    id: 9,
     text: 'Usted está en el parque de atracciones mecánicas con su pareja y sus hijos haciendo la fila para subir a la Rueda de Chicago. Un anuncio indica que todo niño menor de 10 años no paga boleta. Para evitarse un pago su pareja le pide que mienta sobre la edad de su hijo mayor, que ya tiene 11. ¿Usted qué hace?',
     choices: [
       'Hablo en privado con mi esposa para decirle que no va a mentir',
@@ -61,44 +85,58 @@ const questions = [
     ],
     answer: [50, 100, 0],
     mode: 'singular',
+    type: 'weight_scale'
   },
   {
+    id: 10,
     text: '¿Alguna vez lo/la castigaron por decir la verdad?',
     choices: ['Sí', 'No'],
     answer: [100, 0],
     mode: 'singular',
+    type: 'weight_scale'
   },
   {
+    id: 11,
     text: '¿Alguna vez su papá o mamá, o la persona encargada de su crianza, le pidió decir una mentira?',
     choices: ['Sí', 'No'],
     answer: [100, 0],
     mode: 'singular',
+    type: 'weight_scale'
   },
   {
+    id: 12,
     text: '¿Alguna vez se confabuló con su papá o mamá para mentir?',
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
+    type: 'weight_scale'
   },
   {
+    id: 13,
     text: '¿Veía a su papá o mámá mentir delante suyo?',
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
+    type: 'weight_scale'
   },
   {
+    id: 14,
     text: '¿Alguna vez lo/la han premiado por ser sincero/a?',
     choices: ['Sí', 'No'],
     answer: [100, 0],
     mode: 'singular',
+    type: 'weight_scale'
   },
   {
+    id: 15,
     text: '¿Ha visto a su papá o mamá enfrentar la verdad con valentía?',
     choices: ['Sí', 'No'],
     answer: [100, 0],
     mode: 'singular',
+    type: 'weight_scale'
   },
   {
+    id: 16,
     text: 'Usted va en el carro de un amigo que mientras conduce habla por su teléfono móvil. La policía de tránsito los detiene y usted escucha cómo su amigo le jura al policía que no estaba hablando por teléfono. Para zanjar la discusión el policía le pregunta a usted si es cierto o no que su amigo estaba hablando por teléfono mientras conducía. ¿Cuál sería su respuesta?',
     choices: [
       'Sí señor agente, usted tiene la razón, mi amigo hablaba por su teléfono mientras conducía',
@@ -108,8 +146,10 @@ const questions = [
     ],
     answer: [100, 25, 0, 75],
     mode: 'singular',
+    type: 'weight_scale'
   },
   {
+    id: 17,
     text: 'A usted le gusta hablar con Pedro y tratar de ayudarlo con algunos de sus problemas personales, pero no tiene ningún sentimiento romántico hacia él. Sin embargo Pedro la invita a salir el viernes con intenciones claramente románticas y no de amistad. Usted qué contesta:',
     choices: [
       'No Pedrito, me caes bien pero no estoy interesada en ti. Si es una salida de amigos vamos, de lo contrario no.',
@@ -118,8 +158,10 @@ const questions = [
     ],
     answer: [100, 50, 0],
     mode: 'singular',
+    type: 'weight_scale'
   },
   {
+    id: 18,
     text: '¿Bajo qué circunstancias su compromiso con la verdad flaquea?',
     choices: [
       'Cuando me da pena aceptar algo acerca de mi mismo',
@@ -129,30 +171,39 @@ const questions = [
     ],
     answer: [25, 0, 75, 100],
     mode: 'singular',
+    type: 'weight_scale'
   },
   {
+    id: 19,
     text: '¿Ha mentido sobre su vida amorosa para hacerla parecer más exitosa?',
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
+    type: 'weight_scale'
   },
   {
+    id: 20,
     text: '¿Ha mentido sobre su vida sexual?',
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
+    type: 'weight_scale'
   },
   {
+    id: 21,
     text: '¿Ha mentido sobre sus logros profesionales?',
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
+    type: 'weight_scale'
   },
   {
+    id: 22,
     text: '¿Ha simulado saber o entender de un tema por pena a parecer ignorante?',
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
+    type: 'weight_scale'
   },
 ];
 
@@ -165,5 +216,16 @@ const trivia = new Trivia({
 trivia.init();
 
 trivia.el.addEventListener('ended', function (event) {
-  alert(event.detail.score)
+  const answers = event.detail.history;
+  const body = Object.assign(s3Params, { answers: answers })
+  fetch(`${apiUrl}/add-answer`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  }).then(response => response.json())
+  .then(json => {
+    alert('Respuestas guardadas')
+  })
 })
