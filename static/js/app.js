@@ -2,7 +2,7 @@ const apiUrl = 'https://o3q3l9elhd.execute-api.us-east-1.amazonaws.com/beta';
 
 const s3Params = {
   bucket: 'avina-trivia-verdad',
-  key: 'db.json',
+  key: 'db.csv',
 };
 
 const questions = [
@@ -53,7 +53,7 @@ const questions = [
   },
   {
     id: 6,
-    text: '¿Ha mentido acerca de sus experiencias, de su historia personal, de sus posesisones o conocimientos a alguien que le interesaba sentimentalmente?',
+    text: '¿Ha mentido acerca de sus experiencias, de su historia personal, de sus posesiones o conocimientos a alguien que le interesaba sentimentalmente?',
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
@@ -216,8 +216,10 @@ const trivia = new Trivia({
 trivia.init();
 
 trivia.el.addEventListener('ended', function (event) {
-  const answers = event.detail.history;
+  // JSON to CSV
+  const answers = Papa.unparse(event.detail.history);
   const body = Object.assign(s3Params, { answers: answers })
+
   fetch(`${apiUrl}/add-answer`, {
     method: 'POST',
     headers: {

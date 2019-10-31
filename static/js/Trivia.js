@@ -20,7 +20,7 @@ function Trivia(config) {
   this.answer = [];
   this.selected = null;
   this.history = [];
-  this.session = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  this.session_id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
   this.handleAnswerChange = this.handleAnswerChange.bind(this);
   this.handleNextButton = this.handleNextButton.bind(this);
 }
@@ -104,10 +104,10 @@ Trivia.prototype.handleNextButton = function handleNextButton() {
     if (question.mode === 'singular') {
       score = question.answer[this.answer[0]]
       this.history.push({
-        session: this.session,
+        session_id: this.session_id,
         question_id: question.id,
-        type: question.type,
-        number: score,
+        question_type: question.type,
+        answer_weight: score,
       });
     }
   } else {

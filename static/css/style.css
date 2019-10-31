@@ -87,3 +87,8 @@ ol, ul {
   padding: 0.5rem 1rem;
   text-transform: uppercase;
 }
+
+.trivia-next:disabled {
+  cursor: not-allowed;
+  background-color: #A0AEC0;
+}
