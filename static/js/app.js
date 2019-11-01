@@ -2,7 +2,7 @@ const apiUrl = 'https://o3q3l9elhd.execute-api.us-east-1.amazonaws.com/beta';
 
 const s3Params = {
   bucket: 'avina-trivia-verdad',
-  key: 'db.csv',
+  key: 'data/db.csv',
 };
 
 const questions = [
