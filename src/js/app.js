@@ -1,5 +1,8 @@
-const apiUrl = 'https://o3q3l9elhd.execute-api.us-east-1.amazonaws.com/beta';
+import '../css/style.css';
+import Papa from 'papaparse';
+import Trivia from './Trivia';
 
+const apiUrl = 'https://o3q3l9elhd.execute-api.us-east-1.amazonaws.com/beta';
 const s3Params = {
   bucket: 'avina-trivia-verdad',
   key: 'data/db.csv',
@@ -13,11 +16,11 @@ const questions = [
       'Divino, me encanta.',
       'Amor, debes haber gastado una fortuna. ¡Gracias! (y evade el tema del anillo)',
       'Gracias, pero la verdad no me gusta. ¿Podríamos tratar de cambiarlo?',
-      'Qué detalle tan lindo. Eres muy detallista. Sin embargo el diseño no es que me enloquezca, ¿podríamos tratar de cambiarlo?'
+      'Qué detalle tan lindo. Eres muy detallista. Sin embargo el diseño no es que me enloquezca, ¿podríamos tratar de cambiarlo?',
     ],
     answer: [0, 25, 75, 100],
     mode: 'singular',
-    type: 'weight_scale'
+    type: 'weight_scale',
   },
   {
     id: 2,
@@ -25,7 +28,7 @@ const questions = [
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
-    type: 'weight_scale'
+    type: 'weight_scale',
   },
   {
     id: 3,
@@ -33,7 +36,7 @@ const questions = [
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
-    type: 'weight_scale'
+    type: 'weight_scale',
   },
   {
     id: 4,
@@ -41,7 +44,7 @@ const questions = [
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
-    type: 'weight_scale'
+    type: 'weight_scale',
   },
   {
     id: 5,
@@ -49,7 +52,7 @@ const questions = [
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
-    type: 'weight_scale'
+    type: 'weight_scale',
   },
   {
     id: 6,
@@ -57,7 +60,7 @@ const questions = [
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
-    type: 'weight_scale'
+    type: 'weight_scale',
   },
   {
     id: 7,
@@ -65,7 +68,7 @@ const questions = [
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
-    type: 'weight_scale'
+    type: 'weight_scale',
   },
   {
     id: 8,
@@ -73,7 +76,7 @@ const questions = [
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
-    type: 'weight_scale'
+    type: 'weight_scale',
   },
   {
     id: 9,
@@ -81,11 +84,11 @@ const questions = [
     choices: [
       'Hablo en privado con mi esposa para decirle que no va a mentir',
       'Habla en familia por qué está en desacuerdo con mentir',
-      'Obvio, si se ve pequeño el niño, tiro a ahorrar lo de la boleta'
+      'Obvio, si se ve pequeño el niño, tiro a ahorrar lo de la boleta',
     ],
     answer: [50, 100, 0],
     mode: 'singular',
-    type: 'weight_scale'
+    type: 'weight_scale',
   },
   {
     id: 10,
@@ -93,7 +96,7 @@ const questions = [
     choices: ['Sí', 'No'],
     answer: [100, 0],
     mode: 'singular',
-    type: 'weight_scale'
+    type: 'weight_scale',
   },
   {
     id: 11,
@@ -101,7 +104,7 @@ const questions = [
     choices: ['Sí', 'No'],
     answer: [100, 0],
     mode: 'singular',
-    type: 'weight_scale'
+    type: 'weight_scale',
   },
   {
     id: 12,
@@ -109,7 +112,7 @@ const questions = [
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
-    type: 'weight_scale'
+    type: 'weight_scale',
   },
   {
     id: 13,
@@ -117,7 +120,7 @@ const questions = [
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
-    type: 'weight_scale'
+    type: 'weight_scale',
   },
   {
     id: 14,
@@ -125,7 +128,7 @@ const questions = [
     choices: ['Sí', 'No'],
     answer: [100, 0],
     mode: 'singular',
-    type: 'weight_scale'
+    type: 'weight_scale',
   },
   {
     id: 15,
@@ -133,7 +136,7 @@ const questions = [
     choices: ['Sí', 'No'],
     answer: [100, 0],
     mode: 'singular',
-    type: 'weight_scale'
+    type: 'weight_scale',
   },
   {
     id: 16,
@@ -142,11 +145,11 @@ const questions = [
       'Sí señor agente, usted tiene la razón, mi amigo hablaba por su teléfono mientras conducía',
       'Obvio que no, íbamos conversando juntos',
       'Señor agente, ¿por qué no arreglamos esto por las buenas?',
-      'No me di cuenta, estaba distraído'
+      'No me di cuenta, estaba distraído',
     ],
     answer: [100, 25, 0, 75],
     mode: 'singular',
-    type: 'weight_scale'
+    type: 'weight_scale',
   },
   {
     id: 17,
@@ -154,11 +157,11 @@ const questions = [
     choices: [
       'No Pedrito, me caes bien pero no estoy interesada en ti. Si es una salida de amigos vamos, de lo contrario no.',
       'Voy a decirle que sí pero el viernes me invento algo para no poder ir',
-      'Toca aceptar porque qué pena o qué pecado decirle que no. Ya en la disco busco cómo evadirme'
+      'Toca aceptar porque qué pena o qué pecado decirle que no. Ya en la disco busco cómo evadirme',
     ],
     answer: [100, 50, 0],
     mode: 'singular',
-    type: 'weight_scale'
+    type: 'weight_scale',
   },
   {
     id: 18,
@@ -167,11 +170,11 @@ const questions = [
       'Cuando me da pena aceptar algo acerca de mi mismo',
       'Cuando los beneficios a cambio de la mentira son muy altos (conseguir un trabajo,una rebaja...)',
       'Cuando decir la verdad es injusto',
-      'Cuando el propósito es noble'
+      'Cuando el propósito es noble',
     ],
     answer: [25, 0, 75, 100],
     mode: 'singular',
-    type: 'weight_scale'
+    type: 'weight_scale',
   },
   {
     id: 19,
@@ -179,7 +182,7 @@ const questions = [
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
-    type: 'weight_scale'
+    type: 'weight_scale',
   },
   {
     id: 20,
@@ -187,7 +190,7 @@ const questions = [
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
-    type: 'weight_scale'
+    type: 'weight_scale',
   },
   {
     id: 21,
@@ -195,7 +198,7 @@ const questions = [
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
-    type: 'weight_scale'
+    type: 'weight_scale',
   },
   {
     id: 22,
@@ -203,31 +206,31 @@ const questions = [
     choices: ['Sí', 'No'],
     answer: [0, 100],
     mode: 'singular',
-    type: 'weight_scale'
+    type: 'weight_scale',
   },
 ];
 
 const trivia = new Trivia({
   el: document.getElementById('trivia'),
-  questions: questions,
+  questions,
   mode: 'perception',
 });
 
 trivia.init();
 
-trivia.el.addEventListener('ended', function (event) {
+trivia.el.addEventListener('ended', (event) => {
   // JSON to CSV
   const answers = Papa.unparse(event.detail.history);
-  const body = Object.assign(s3Params, { answers: answers })
+  const body = Object.assign(s3Params, { answers });
 
   fetch(`${apiUrl}/add-answer`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(body)
-  }).then(response => response.json())
-  .then(json => {
-    alert('Respuestas guardadas')
-  })
-})
+    body: JSON.stringify(body),
+  }).then((response) => response.json())
+    .then(() => {
+      alert('Respuestas guardadas');
+    });
+});
