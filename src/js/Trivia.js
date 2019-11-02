@@ -48,11 +48,13 @@ export default class Trivia {
   }
 
   registerNextButton() {
-    this.slots.button.textContent = 'Siguiente';
     this.slots.button.addEventListener('click', this.handleNextButton);
   }
 
   updateProgress() {
+    this.slots.button.textContent = (this.step + 1) === this.questions.length
+      ? 'Finalizar'
+      : 'Siguiente';
     this.slots.progress.textContent = `${this.step + 1} de ${this.questions.length}`;
   }
 
@@ -114,9 +116,6 @@ export default class Trivia {
       const guessed = this.answer.filter((answer) => question.answer.includes(answer));
       score = guessed.length / question.answer.length;
     }
-    if (this.step + 1 === (this.questions.length - 1)) {
-      this.slots.button.textContent = 'Finalizar';
-    }
     this.score += score;
     this.el.querySelector('.trivia-answers').removeEventListener('change', this.handleAnswerChange);
     this.step = this.step + 1;
@@ -129,7 +128,14 @@ export default class Trivia {
     const score = this.mode === 'perception'
       ? this.score / questions
       : this.score;
-    const TriviaEvent = new CustomEvent('ended', { detail: { score, questions, history: this.history } });
+    const TriviaEvent = new CustomEvent('ended', {
+      detail: {
+        score,
+        questions,
+        history: this.history,
+        session_id: this.session_id,
+      },
+    });
     this.el.dispatchEvent(TriviaEvent);
   }
 

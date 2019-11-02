@@ -1,12 +1,17 @@
 import '../css/style.css';
 import Papa from 'papaparse';
+import { TweenLite } from 'gsap/TweenMax';
 import Trivia from './Trivia';
+import renderGaugeChart from './gauge';
 
 const apiUrl = 'https://o3q3l9elhd.execute-api.us-east-1.amazonaws.com/beta';
 const s3Params = {
   bucket: 'avina-trivia-verdad',
   key: 'data/db.csv',
 };
+
+const loader = document.getElementById('loader');
+const results = document.querySelector('.trivia-results');
 
 const questions = [
   {
@@ -211,26 +216,69 @@ const questions = [
 ];
 
 const trivia = new Trivia({
-  el: document.getElementById('trivia'),
   questions,
+  el: document.getElementById('trivia'),
   mode: 'perception',
 });
 
 trivia.init();
 
-trivia.el.addEventListener('ended', (event) => {
-  // JSON to CSV
+const getScores = (sessionId) => (
+  new Promise((resolve, reject) => {
+    fetch(`${apiUrl}/get-scores`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ session_id: sessionId }),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (!response.success) {
+          reject(response.error);
+        }
+        resolve(JSON.parse(response.body));
+      })
+      .catch(reject);
+  })
+);
+
+const saveAnswer = (body) => (
+  new Promise((resolve, reject) => {
+    fetch(`${apiUrl}/add-answer`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (!response.success) {
+          reject(response.error);
+        }
+        resolve();
+      })
+      .catch(reject);
+  })
+);
+
+function handleTriviaEnd(event) {
   const answers = Papa.unparse(event.detail.history);
   const body = Object.assign(s3Params, { answers });
 
-  fetch(`${apiUrl}/add-answer`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  }).then((response) => response.json())
+  loader.classList.add('is-visible');
+
+  saveAnswer(body)
     .then(() => {
-      alert('Respuestas guardadas');
-    });
-});
+      const sessionId = event.detail.session_id;
+      return getScores(sessionId);
+    })
+    .then((data) => {
+      const items = data.Items;
+      loader.classList.remove('is-visible');
+      trivia.el.style.display = 'none';
+      results.style.display = 'block';
+      renderGaugeChart(items, event.detail.score);
+      TweenLite.fromTo('svg', 0.5, { scale: 0 }, { scale: 1 });
+    })
+    .catch(() => { /* handle error */ });
+}
+
+trivia.el.addEventListener('ended', handleTriviaEnd);

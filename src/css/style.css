@@ -25,7 +25,51 @@ ol, ul {
   list-style: none;
 }
 
-#trivia {
+text {
+  font-size: 0.75rem;
+}
+
+#loader {
+  background-color: rgba(26, 32, 44, 0.95);
+  bottom: 0;
+  display: flex;
+  left: 0;
+  opacity: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+#loader.is-visible {
+  opacity: 1;
+  z-index: 1;
+}
+
+.loader-content {
+  margin: auto;
+  position: relative;
+}
+
+.spinner {
+  animation: spin 1s infinite linear;
+  border-bottom: 4px solid rgba(160, 174, 192, 0.7);
+  border-left: 4px solid #ffffff;
+  border-radius: 50%;
+  border-right: 4px solid rgba(160, 174, 192, 0.7);
+  border-top: 4px solid rgba(160, 174, 192, 0.7);
+  height: 4rem;
+  margin: 0 auto;
+  width: 4rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg) }
+  100% { transform: rotate(360deg) }
+}
+
+
+.container {
   margin: 0 auto;
   max-width: 48rem;
   padding: 0 1rem;
@@ -69,6 +113,10 @@ ol, ul {
   margin-top: 0;
 }
 
+.trivia-answer span {
+  margin-right: 1rem;
+}
+
 .trivia-answer.is-selected,
 .trivia-answer:hover {
   background-color: #4FD1C5;
@@ -91,4 +139,13 @@ ol, ul {
 .trivia-next:disabled {
   cursor: not-allowed;
   background-color: #A0AEC0;
+}
+
+.results-title {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.results-chart {
+  margin-top: 2rem;
 }

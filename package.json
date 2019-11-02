@@ -33,6 +33,8 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
+    "d3": "^5.12.0",
+    "gsap": "^2.1.3",
     "papaparse": "^5.1.0"
   },
   "browserslist": [
