@@ -7,9 +7,11 @@
 }
 
 html {
-  background-color: #F7FAFC;
+  background-color: #2ec4b6;
   box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Barlow', sans-serif;
+  font-weight: 500;
+  color: #ffffff;
 }
 
 body {
@@ -79,6 +81,9 @@ text {
   text-align: center;
   font-weight: 600;
   font-size: 1.875rem;
+  font-family: 'cubano', sans-serif;
+  font-weight: 400;
+  color: #1e9b8c;
 }
 
 .trivia-questions {
@@ -87,6 +92,8 @@ text {
 
 .trivia-question-text {
   font-size: 1.875rem;
+  font-family: 'cubano', sans-serif;
+  font-weight: 400;
 }
 
 .trivia-answers {
@@ -97,7 +104,7 @@ text {
 
 .trivia-answer {
   align-items: center;
-  background-color: #FFFFFF;
+  background-color: #1e9b8c;
   border-radius: 4px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   cursor: pointer;
@@ -119,12 +126,12 @@ text {
 
 .trivia-answer.is-selected,
 .trivia-answer:hover {
-  background-color: #4FD1C5;
-  color: #FFFFFF;
+  background-color: #ffffff;
+  color: #1e9b8c;
 }
 
 .trivia-next {
-  background-color: #4FD1C5;
+  background-color: #1e9b8c;
   border: none;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   color: #FFFFFF;
@@ -138,7 +145,7 @@ text {
 
 .trivia-next:disabled {
   cursor: not-allowed;
-  background-color: #A0AEC0;
+  background-color: #2ec4b6;
 }
 
 .results-title {

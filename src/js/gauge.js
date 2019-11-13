@@ -12,12 +12,8 @@ const renderGaugeChart = (items, score) => {
     .attr('height', height)
     .attr('viewBox', `-${width / 2} -${height} ${width} ${height + 10}`);
 
-  const accents = d3.scaleOrdinal().range(['#FEB2B2', '#FAF089', '#9AE6B4']);
-
   const segments = [
-    { label: 'Pícaro', value: 1 },
-    { label: 'Gil', value: 1 },
-    { label: 'Guardián', value: 1 },
+    { label: '', value: 1 },
   ];
 
   const arc = d3.arc()
@@ -30,11 +26,18 @@ const renderGaugeChart = (items, score) => {
     .startAngle(-Math.PI / 2)
     .endAngle(Math.PI / 2);
 
+  const gradient = svg.append('linearGradient').attr('id', 'gradient');
+
+  gradient.append('stop').attr('stop-color', '#F23B63').attr('offset', '0%');
+  gradient.append('stop').attr('stop-color', '#FF9F1C').attr('offset', '25%');
+  gradient.append('stop').attr('stop-color', '#FAD946').attr('offset', '50%');
+  gradient.append('stop').attr('stop-color', '#A2ED66').attr('offset', '75%');
+
   svg.selectAll('path')
     .data(pie(segments)).enter()
     .append('path')
     .attr('d', arc)
-    .attr('fill', (d) => accents(d.index));
+    .attr('fill', 'url(#gradient)');
 
   svg.selectAll('text')
     .data(pie(segments)).enter()
@@ -48,9 +51,14 @@ const renderGaugeChart = (items, score) => {
   const needles = svg.append('g').classed('needles', true);
   const needlePath = `M0 8 L${-radius} 0 L0 -8 Z`;
 
-  const needleElse = needles.append('path')
-    .attr('d', needlePath)
-    .attr('fill', '#4A5568');
+  const needleElse = needles.append('line')
+    .attr('x1', '0')
+    .attr('y1', '0')
+    .attr('x2', `${-radius}`)
+    .attr('y2', '0')
+    .attr('stroke', '#ffffff')
+    .attr('stroke-width', '4px')
+    .attr('stroke-dasharray', '4 1');
 
   const needleSelf = needles.append('path')
     .attr('d', needlePath)
