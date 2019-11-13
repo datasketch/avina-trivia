@@ -39,12 +39,12 @@ const renderGaugeChart = (items, score) => {
     .attr('d', arc)
     .attr('fill', 'url(#gradient)');
 
-  svg.selectAll('text')
+  /* svg.selectAll('text')
     .data(pie(segments)).enter()
     .append('text')
     .attr('text-anchor', 'middle')
     .attr('transform', (d) => `translate(${arc.centroid(d)})`)
-    .text((d) => d.data.label);
+    .text((d) => d.data.label); */
 
   const median = d3.median(items, (item) => item.score);
 

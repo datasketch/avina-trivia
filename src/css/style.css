@@ -31,6 +31,19 @@ text {
   font-size: 0.75rem;
 }
 
+.text-jungle-green {
+  color: #1e9b8c;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.font-cuba {
+  font-family: 'cubano', sans-serif;
+  font-weight: 400;
+}
+
 #loader {
   background-color: rgba(26, 32, 44, 0.95);
   bottom: 0;
@@ -153,6 +166,21 @@ text {
   text-align: center;
 }
 
+.results-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
 .results-chart {
   margin-top: 2rem;
+}
+
+.concepts {
+  font-size: 1.125rem;
+}
+
+.results-score {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
 }

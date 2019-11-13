@@ -1,4 +1,5 @@
 import '../css/style.css';
+import * as d3 from 'd3';
 import Papa from 'papaparse';
 import { TweenLite } from 'gsap/TweenMax';
 import Trivia from './Trivia';
@@ -12,6 +13,8 @@ const s3Params = {
 
 const loader = document.getElementById('loader');
 const results = document.querySelector('.trivia-results');
+const myScore = document.getElementById('my-score');
+const elseScore = document.getElementById('else-score');
 
 const questions = [
   {
@@ -275,6 +278,9 @@ function handleTriviaEnd(event) {
       loader.classList.remove('is-visible');
       trivia.el.style.display = 'none';
       results.style.display = 'block';
+      const median = d3.median(items, (item) => item.score);
+      myScore.textContent = `${event.detail.score.toFixed(2)}%`;
+      elseScore.textContent = `${median.toFixed(2)}%`;
       renderGaugeChart(items, event.detail.score);
       TweenLite.fromTo('svg', 0.5, { scale: 0 }, { scale: 1 });
     })
