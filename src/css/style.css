@@ -7,7 +7,6 @@
 }
 
 html {
-  background-color: #2ec4b6;
   box-sizing: border-box;
   font-family: 'Barlow', sans-serif;
   font-weight: 500;
@@ -15,7 +14,12 @@ html {
 }
 
 body {
+  background-color: #f23b63;
   padding: 2rem 0;
+}
+
+body.active-game {
+  background-color: #2ec4b6;
 }
 
 a {
@@ -83,6 +87,28 @@ text {
   100% { transform: rotate(360deg) }
 }
 
+#welcome h1 {
+  color: #b72d4b;
+  font-size: 6rem;
+}
+
+#welcome p {
+  font-size: 1.25rem;
+  margin-top: 1.25rem;
+  line-height: 1.5;
+}
+
+#welcome button {
+  background-color: #ffffff;
+  border: none;
+  color: #f23b63;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'cubano', sans-serif;
+  font-size: 1.25rem;
+  margin-top: 1.5rem;
+  padding: 0.25rem 0.5rem;
+}
 
 .container {
   margin: 0 auto;

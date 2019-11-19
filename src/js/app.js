@@ -11,6 +11,9 @@ const s3Params = {
   key: 'data/db.csv',
 };
 
+const start = document.getElementById('start');
+const welcome = document.getElementById('welcome');
+const triviaEl = document.getElementById('trivia');
 const loader = document.getElementById('loader');
 const results = document.querySelector('.trivia-results');
 const myScore = document.getElementById('my-score');
@@ -220,11 +223,9 @@ const questions = [
 
 const trivia = new Trivia({
   questions,
-  el: document.getElementById('trivia'),
+  el: triviaEl,
   mode: 'perception',
 });
-
-trivia.init();
 
 const getScores = (sessionId) => (
   new Promise((resolve, reject) => {
@@ -288,3 +289,10 @@ function handleTriviaEnd(event) {
 }
 
 trivia.el.addEventListener('ended', handleTriviaEnd);
+
+start.addEventListener('click', () => {
+  document.body.classList.add('active-game');
+  welcome.remove();
+  triviaEl.style.display = 'block';
+  trivia.init();
+});
