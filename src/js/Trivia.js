@@ -21,6 +21,8 @@ export default class Trivia {
     this.answer = [];
     this.selected = null;
     this.history = [];
+    this.identifies_as = null;
+    this.timestamp = new Date();
     this.session_id = Math.random().toString(36).substring(2, 15)
       + Math.random().toString(36).substring(2, 15);
     this.handleAnswerChange = this.handleAnswerChange.bind(this);
@@ -101,14 +103,20 @@ export default class Trivia {
   handleNextButton() {
     const question = this.questions[this.step];
     let score;
+    if (question.type === 'identifier') {
+      this.identifies_as = question.answer[this.answer[0]];
+      score = 0;
+    }
     if (this.mode === 'perception') { // Based on scores
-      if (question.mode === 'singular') {
+      if (question.mode === 'singular' && question.type === 'weight_scale') {
         score = question.answer[this.answer[0]];
         this.history.push({
+          timestamp: this.timestamp,
           session_id: this.session_id,
           question_id: question.id,
           question_type: question.type,
           answer_weight: score,
+          identifies_as: this.identifies_as,
         });
       }
     } else {

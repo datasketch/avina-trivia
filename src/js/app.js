@@ -21,6 +21,14 @@ const elseScore = document.getElementById('else-score');
 
 const questions = [
   {
+    id: 0,
+    text: '¿Cómo se identifica?',
+    choices: ['Mujer', 'Hombre', 'Otra/o'],
+    answer: ['mujer', 'hombre', 'otra/o'],
+    mode: 'singular',
+    type: 'identifier',
+  },
+  {
     id: 1,
     text: 'Su pareja la/lo ha invitado a cenar y llega con un costoso anillo de regalo. Resulta que a usted no le gusta, quizá le parece tan feo que no se sienta capaz de llegar a usarlo nunca. ¿Qué dice usted?',
     choices: [
@@ -280,8 +288,8 @@ function handleTriviaEnd(event) {
       trivia.el.style.display = 'none';
       results.style.display = 'block';
       const median = d3.median(items, (item) => item.score);
-      myScore.textContent = `${event.detail.score.toFixed(2)}%`;
-      elseScore.textContent = `${median.toFixed(2)}%`;
+      myScore.textContent = `${parseInt(event.detail.score, 10)}%`;
+      elseScore.textContent = `${parseInt(median, 10)}%`;
       renderGaugeChart(items, event.detail.score);
       TweenLite.fromTo('svg', 0.5, { scale: 0 }, { scale: 1 });
     })

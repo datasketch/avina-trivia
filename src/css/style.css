@@ -210,3 +210,35 @@ text {
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
+
+/* Media */
+.media {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+.media:first-of-type {
+  margin-top: 0;
+}
+
+.media-image {
+  flex-shrink: 0;
+  width: 120px;
+}
+
+.media-image img {
+  max-width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .media {
+    flex-direction: row;
+  }
+  .media-content {
+    padding: 0 1rem;
+  }
+  .media:nth-of-type(2) {
+    flex-direction: row-reverse;
+  }
+}
